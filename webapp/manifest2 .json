@@ -1,0 +1,171 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "project1",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.12.0",
+      "toolsId": "48f8a37a-3cf0-4b42-b9ff-1e963e9b4f37"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "adobe-adobe": {
+          "semanticObject": "adobe",
+          "action": "adobe",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.120.2",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "project1.i18n.i18n"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "type": "View",
+        "viewType": "XML",
+        "path": "project1.view",
+        "controlId": "app",
+        "async": true,
+        "controlAggregation": "pages"
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "Packing",
+          "target": "TargetPacking"
+        },
+        {
+          "pattern": "SpecInfo/{objectId}",
+          "name": "SpecInfo",
+          "target": "TargetSpecInfo"
+        },
+        {
+          "pattern": "VanningMaterial",
+          "name": "VanningMaterial",
+          "target": "TargetSpecInfo"
+        },
+        {
+          "pattern": "Airlift",
+          "name": "Airlift",
+          "target": "TargetSpecInfo"
+        },
+        {
+          "pattern": "SupplierNew",
+          "name": "SupplierNew",
+          "target": "TargetSupplierNew"
+        },
+        {
+        "pattern": "overview",
+        "name": "overview",
+        "target": "overview"
+        },
+        {
+        "pattern": "detail/{invoicePath}",
+        "name": "detail",
+        "target": "detail"
+        }
+      ],
+      "targets": {
+        "TargetPacking": {
+          "id": "Packing",
+          "name": "Packing"
+        },
+        "TargetSpecInfo": {
+          "id": "SpecInfo",
+          "name": "SpecInfo"
+        },
+        "TargetVanningMaterial": {
+          "id": "VanningMaterial",
+          "name": "VanningMaterial"
+        },
+        "TargetAirlift": {
+          "id": "Airlift",
+          "name": "Airlift"
+        },        
+        "TargetSupplierNew": {
+          "id": "SupplierNew",
+          "name": "SupplierNew"
+        },
+        "overview": {
+          "id": "overview",
+          "name": "Overview"
+        },
+        "detail": {
+          "id": "detail",
+          "name": "Detail"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "project1.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "project1"
+  }
+}

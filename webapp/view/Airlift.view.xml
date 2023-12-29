@@ -1,0 +1,162 @@
+<mvc:View
+    controllerName="project1.controller.Airlift"
+    xmlns="sap.m"
+    xmlns:t="sap.ui.table"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:u="sap.ui.unified"
+    xmlns:smartForm="sap.ui.comp.smartform"
+    xmlns:smartField="sap.ui.comp.smartfield"
+    xmlns:upload="sap.m.upload"
+    xmlns:mvc="sap.ui.core.mvc">
+    <f:DynamicPage id="VanningPage" headerExpanded="{/headerExpanded}" toggleHeaderOnTitleClick="false">
+        <f:content>
+            <layout:Grid defaultSpan="XL12 L12 M12 S12">
+                <t:Table
+                    id="airliftTable"
+                    rows="{ path:'airliftModel>/'}"
+                    selectionMode="MultiToggle"
+                    paste="onPaste"
+                    ariaLabelledBy="title"
+                    rowSelectionChange="onAirliftSelect">
+                    <t:extension>
+                        <OverflowToolbar>
+                            <Text text="공수정보" maxLines="1"/>
+                            <ToolbarSpacer />
+                            <Button text="입력" type="Transparent" press="onSave"/>
+                            <Button	text="수정"	type="Transparent" press="onEdit"/>
+                            <Button	text="삭제" type="Transparent"	press=""/>
+                        </OverflowToolbar>
+                    </t:extension>
+                    <t:columns>
+                        <t:Column width="10rem" >
+                            <Text text="자재번호" maxLines="1"/>
+                            <t:template>                                    
+                                <Text text="{airliftModel>MATNR}" maxLines="1"/>                                    
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="10rem">
+                            <Text text="자재크기" maxLines="1"/>
+                            <t:template>                                        
+                                <Text text="{airliftModel>size}" maxLines="1" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="12rem">
+                            <Text text="포장유형" maxLines="1"/>
+                            <t:template>                                        
+                                <Text text="{airliftModel>packagingType}" maxLines="1" />                                        
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="20rem">
+                            <Text text="포장방법" maxLines="1"/>
+                            <t:template>                                        
+                                    <Select width="100%" id="packagingHow" selectedKey="{airliftModel>packagingHow}" forceSelection="false">
+                                        <core:Item key="S01" text="S01 소물부품 묶음포장" />
+                                        <core:Item key="S36" text="S36 소물부품 C/BOX 포장" />
+                                    </Select>                                        
+                            </t:template>                                    
+                        </t:Column>
+                        <t:Column width="30rem" >
+                            <Text text="포장방법상세" maxLines="1"/>
+                            <t:template>
+                                <VBox id="DetailBox">
+                                    <Select width="100%" selectedKey="{airliftModel>packagingDetail}" visible="{=${airliftModel>packagingHow}==='S01' ? true : false }" forceSelection="false">
+                                        <core:Item key="S0101" text="S0101 소물부품 묶음포장" />
+                                    </Select>                                            
+                                    <Select width="100%" selectedKey="{airliftModel>packagingDetail}" visible="{=${airliftModel>packagingHow}==='S36' ? true : false }" forceSelection="false">
+                                        <core:Item key="S3601" text="S3601 소물부품 C/BOX포장" />
+                                        <core:Item key="S3602" text="S3602 소물부품 C/BOX포장+전체비닐" />
+                                        <core:Item key="S3603" text="S3603 소물부품 C/BOX포장+100개 소포장 (비닐/TRAY外)" />
+                                        <core:Item key="S3604" text="S3604 소물부품 C/BOX포장+200개 소포장 (비닐/TRAY外)" />
+                                        <core:Item key="S3605" text="S3605 소물부품 C/BOX포장+300개 소포장 (비닐/TRAY外)" />
+                                        <core:Item key="S3606" text="S3606 소물부품 C/BOX포장+격자패드+ 셀內 적입" />
+                                        <core:Item key="S3607" text="S3607 소물부품 C/BOX포장+부품정렬적입 (150개이하)" />
+                                        <core:Item key="S3608" text="S3608 소물부품 C/BOX포장+부품정렬적입 (150개초과)" />
+                                    </Select>                                            
+                                </VBox>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="15rem">
+                            <Text text="적입수량(EA)" maxLines="1"/>
+                            <t:template>
+                                <Text text="{airliftModel>stuffingQty}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="14rem">
+                            <Text text="중포장수" maxLines="1"/>
+                            <t:template>
+                                <Input value="{airliftModel>packagingQty}" type="Number"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="15rem">
+                            <Text text="작업공수(중포장)" maxLines="1"/>
+                            <t:template>
+                                <Text text="{airliftModel>gongsu}" maxLines="1" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="17rem">
+                            <Text text="표준공수산출식" maxLines="1"/>
+                            <t:template>
+                                <Text text="{airliftModel>formula}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="7rem">
+                            <Text text="OK" maxLines="1"/>
+                            <t:template>
+                                <Text text="" maxLines="1"/>
+                            </t:template>
+                        </t:Column>                                
+                    </t:columns>
+                </t:Table>                
+                <t:Table
+                    id="packingTypeTable"
+                    rows="{ path:'packingTypeModel>/'}"
+                    selectionMode="Single"
+                    paste="onPaste"
+                    ariaLabelledBy="title"                            
+                    rowSelectionChange="onPackingTypeSelect">
+                    <t:columns>
+                        <t:Column width="10%" >
+                            <Text text="포장유형" maxLines="1"/>
+                            <t:template>
+                                <Text text="{packingTypeModel>packagingType}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="13%">
+                            <Text text="포장방법" maxLines="1"/>
+                            <t:template>
+                                    <Text text="{packingTypeModel>packagingHow}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="20%">
+                            <Text text="포장방법상세" maxLines="1"/>
+                            <t:template>
+                                    <Text text="{packingTypeModel>packagingDetail}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="10%">
+                            <Text text="포장항목코드" maxLines="1"/>
+                            <t:template>
+                                    <Text text="{packingTypeModel>packagingCode}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="10%" >
+                            <Text text="포장항목코드명" maxLines="1"/>
+                            <t:template>
+                                    <Text text="{packingTypeModel>packagingCodeName}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="10%">
+                            <Text text="작업시간" maxLines="1"/>
+                            <t:template>
+                                    <Text text="{packingTypeModel>time}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>                                                                
+                    </t:columns>
+                </t:Table>
+            </layout:Grid>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

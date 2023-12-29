@@ -1,0 +1,87 @@
+<mvc:View
+    controllerName="project1.controller.SpecInfo"
+    xmlns="sap.m"
+    xmlns:t="sap.ui.table"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:u="sap.ui.unified"
+    xmlns:mvc="sap.ui.core.mvc">
+    <f:DynamicPage id="SpacInfoPage" headerExpanded="{/headerExpanded}" toggleHeaderOnTitleClick="false">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Text text="Packing Spec > 사양서작성및제출 : PM30ERP"/>
+                </f:heading>									
+                <f:actions>
+                    <Button icon="sap-icon://home-share" press="onNavToHome"/>
+                    <Button text="표준사양서" type="Transparent"/>
+                    <Button text="과거사례" type="Transparent"/>
+                    <Button	text="조회" type="Emphasized" press="onSearch"/>
+                    <Button text="사양서복사" type="Transparent"/>
+                    <Button	text="사양서제출"	type="Transparent"/>
+                    <Button	text="동일사양" type="Transparent"	press=""/>
+                    <Button	text="신규사양" type="Transparent" icon="sap-icon://action"/>                    
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="false">
+                <VBox >
+                    <HBox >                        
+                        <Text text="* 공장" width="5rem"/>
+                        <Select width="11rem">
+                            <core:Item key="HK11" text="HK11 울산 CKD 공장" />
+                            <core:Item key="HK21" text="HK21 아산 CKD 공장" />
+                            <core:Item key="HK31" text="HK31 어디 CKD 공장" />
+                        </Select>                                                
+                        <Text text="* 포장사양분류" class="sapUiMediumMarginBegin" width="8rem" />                        
+                        <HBox width="16rem">
+                        <Input width="14rem" value="{packingModel>/0/ZCPISP}"/>
+                        </HBox>
+                        <Text text="* 작성의뢰번호" width="7rem"/>                        
+                        <Input value="{packingModel>/0/ZCCRNO}"/>
+                        <Button icon="sap-icon://pdf-reader" press="onPDF" />
+                        <Input width="7rem" value="C 업체접수" enabled="false"/>
+                    </HBox>
+                    <HBox >                        
+                        <Text text="* 납품업체" width="5rem"/>
+                        <HBox width="11rem">
+                        <Input value="{packingModel>/0/ZCLIFNR3}" width="4rem" enabled="false"/>
+                        <Input value="평화산업(주)" width="7rem" enabled="false"/>
+                        </HBox>
+                        <Text text="* 자재번호" class="sapUiMediumMarginBegin" width="8rem"/>
+                        <HBox width="16rem">
+                        <Input width="7rem" value="{packingModel>/0/MATNR}" enabled="false"/>
+                        <Input width="7rem" value="{packingModel>/0/material}" enabled="false"/>
+                        </HBox>
+                        <Text text="* 국가차종" width="7rem"/>
+                        <Select width="20rem" selectedKey="All" >
+                            <core:Item key="All" text="전체" />
+                        </Select>
+                        <Text text="* 적용사양번호" class="sapUiMediumMarginBegin"/>                        
+                        <Input class="sapUiSmallMarginBegin"/>
+                        <Button icon="sap-icon://search"/>
+                        <HBox width="14rem">
+                        <Input width="7rem" value="{packingModel>/0/submitCategory}" enabled="false"/>
+                        </HBox>
+                        <Input width="5rem" value="{packingModel>/0/ZCLIFNR3}" enabled="false"/>
+                    </HBox>
+                </VBox>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <IconTabBar id="iconTabBar" select="onselectkey" expandable="false" selectedKey="vanning" expanded="true" stretchContentHeight="true" class="sapUiNoContentPadding">
+            <items>
+                <IconTabFilter id="vanningMaterial" key="vanning" text="적입부품" visible="true" class="sapUiResponsiveContentPadding">                        
+                    <mvc:XMLView viewName="project1.view.VanningMaterial" />
+                </IconTabFilter>
+                <IconTabFilter id="airlift" key="airlift" text="공수" visible="true" class="sapUiResponsiveContentPadding">                        
+                    <mvc:XMLView viewName="project1.view.Airlift" />
+                </IconTabFilter>                
+            </items>
+        </IconTabBar>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

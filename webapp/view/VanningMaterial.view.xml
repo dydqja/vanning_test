@@ -1,0 +1,265 @@
+<mvc:View
+    controllerName="project1.controller.VanningMaterial"
+    xmlns="sap.m"
+    xmlns:t="sap.ui.table"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:u="sap.ui.unified"
+    xmlns:smartForm="sap.ui.comp.smartform"
+    xmlns:smartField="sap.ui.comp.smartfield"
+    xmlns:upload="sap.m.upload"
+    xmlns:mvc="sap.ui.core.mvc">
+    <f:DynamicPage id="VanningPage" headerExpanded="{/headerExpanded}" toggleHeaderOnTitleClick="false">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:actions>
+                    <Button text="입력" type="Transparent" press="onSave" />
+                    <Button	text="수정"	type="Transparent" press="onEdit" />
+                    <Button	text="삭제" type="Transparent"/>
+                    <Button	text="엑셀" type="Transparent" press="onExcelDownload"/>
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="false">                
+                <layout:Grid defaultSpan="XL3 L3 M12 S12">
+                    <HBox >
+                        <VBox>
+                        <Avatar
+                            src="{vanningInputModel>/partImg}"
+                            id="partImg"
+                            displaySize="Custom"
+                            customDisplaySize="10rem"                                
+                            displayShape="Square"
+                            press="onAvatarPress" />
+                        <Text text="부품사진" textAlign="Center" width="10rem"/>
+                        </VBox>
+                        <VBox class="sapUiTinyMarginBegin">
+                        <Avatar
+                            src="{vanningInputModel>/vanningPart}"
+                            id="vanningPart"
+                            displaySize="Custom"
+                            customDisplaySize="10rem"                                
+                            displayShape="Square"
+                            press="onAvatarPress" />
+                        <Text text="적입부품" textAlign="Center" width="10rem"/>
+                        <upload:UploadSet 
+                            id="UploadSet" class="UploadSet"
+                            fileTypes="jpeg,png,svg,jpg"
+                            mode="None"
+                            visible="true"                                    
+                            multiple="false"
+                            dragDropDescription="dragDrop"
+                            dragDropText="dragText"
+                            instantUpload="false"
+                            beforeItemAdded="onBeforeItemAdded"
+                            afterItemRemoved="onAfterItemRemoved"
+                            sameFilenameAllowed="false"
+                            maxFileNameLength="200"
+                            fileNameLengthExceeded="onFileNameLengthExceeded"
+                            showIcons="true"
+                            uploadEnabled="true"
+                            selectionChanged="onSelectionChange"
+                            fileRenamed="onFileRenamed">
+                            <upload:items/>                                    
+                        </upload:UploadSet>
+                        </VBox>
+                    </HBox>
+                    <VBox >
+                        <HBox>
+                            <Text text="자재번호" width="7rem" />
+                            <Input width="7rem" value="{vanningModel>/0/MATNR}" enabled="false"/>
+                            <Input width="7rem" value="{vanningModel>/0/material}" enabled="false"/>
+                        </HBox>
+                        <HBox>
+                            <Text text="Usage" width="7rem"/>
+                            <Input width="14rem" value="{vanningInputModel>/Usage}"/>
+                        </HBox>
+                        <HBox>
+                            <Text text="적입률(%)" width="7rem"/>
+                            <Input width="14rem" value="{vanningInputModel>/stuffingRate}"/>
+                        </HBox>
+                        <HBox>
+                            <Text text="재질" width="7rem"/>
+                            <Select width="14rem" selectedKey="{vanningInputModel>/texture}" forceSelection="false">
+                                <core:Item key="PL" text="PLASTIC" />
+                                <core:Item key="RU" text="RUBBER" />
+                                <core:Item key="ST" text="STEEL" />
+                                <core:Item key="ET" text="기타" />
+                            </Select>
+                        </HBox>
+                        <HBox>
+                            <Text text="가로(mm)" width="7rem" />
+                            <Input width="14rem" value="{vanningInputModel>/width}"/>
+                        </HBox>
+                        <HBox>
+                            <Text text="높이(mm)" width="7rem"/>
+                            <Input width="14rem" value="{vanningInputModel>/height}"/>
+                        </HBox>
+                        <HBox>
+                            <Text text="작성자명" width="7rem" />
+                            <Input width="14rem" value="{vanningInputModel>/ZNPERNR}"/>
+                        </HBox>
+                        <HBox>
+                            <Text text="특이사항" width="7rem"/>
+                            <TextArea width="14rem" value="{vanningInputModel>/remark}"/>
+                        </HBox>
+                    </VBox>
+                    <VBox >
+                        <HBox>
+                            <Text text="전화번호" width="7rem"/>                                    
+                            <Input width="14rem" value="{vanningInputModel>/phone}"/>
+                        </HBox>
+                        <HBox>
+                            <Text text="적입수량" width="7rem"/>
+                            <Input width="14rem" value="{vanningInputModel>/stuffingQty}"/>
+                        </HBox>
+                        <HBox>
+                            <Text text="표면처리" width="7rem"/>
+                            <CheckBox id="surface" selected="{vanningInputModel>/surface}" />
+                        </HBox>
+                        <HBox>
+                            <Text text="칼라" width="7rem"/>
+                            <CheckBox id="color" selected="{vanningInputModel>/color}" />
+                        </HBox>
+                        <HBox>
+                            <Text text="세로(mm)" width="7rem"/>
+                            <Input width="14rem" value="{vanningInputModel>/length}"/>
+                        </HBox>
+                        <HBox>
+                            <Text text="두께(mm)" width="7rem"/>
+                            <Input width="14rem" value="{vanningInputModel>/thickness}"/>
+                        </HBox>
+                        <HBox>
+                            <Text text="무게(g)" width="7rem"/>
+                            <Input width="14rem" value="{vanningInputModel>/weight}"/>
+                        </HBox>
+                        <HBox>
+                            <Text text="HMC의견" width="7rem"/>
+                            <TextArea width="14rem" value="{vanningInputModel>/opinion}"/>
+                        </HBox>
+                    </VBox>
+                </layout:Grid >
+                <!-- <layoutData>
+                    <layout:GridData span="XL8 L8 M8 S8"/>
+                </layoutData> -->                        
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <layout:Grid defaultSpan="XL12 L12 M12 S12">
+                <t:Table 
+                    rows="{ path:'vanningModel>/'}"
+                    selectionMode="Single"
+                    paste="onPaste"
+                    ariaLabelledBy="title"
+                    rowSelectionChange="onVanningPartListSelect">
+                    <t:extension>
+                        <OverflowToolbar>
+                          <Text text="적입부품 LIST"/>
+                        </OverflowToolbar>
+                    </t:extension>
+                    <t:columns>
+                        <t:Column width="8rem" >
+                            <Text text="자재번호" maxLines="1"/>
+                            <t:template>
+                                <Text id="MATNR" text="{vanningModel>MATNR}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="15rem">
+                            <Text text="자재명" maxLines="1"/>
+                            <t:template>
+                                    <Text text="{vanningModel>material}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="9rem">
+                            <Text text="Usage" maxLines="1"/>
+                            <t:template>
+                                    <Text text="{vanningModel>Usage}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="9rem">
+                            <Text text="적입수량" maxLines="1"/>
+                            <t:template>
+                                    <Text text="{vanningModel>stuffingQty}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="9rem" >
+                            <Text text="적입률" maxLines="1"/>
+                            <t:template>
+                                    <Text text="{vanningModel>stuffingRate}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="9rem">
+                            <Text text="표면처리" maxLines="1"/>
+                            <t:template>
+                                    <Text text="{=${vanningModel>surface} ? 'Y' : 'N' }" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="9rem">
+                            <Text text="칼라" maxLines="1"/>
+                            <t:template>
+                                    <Text text="{=${vanningModel>color} ? 'Y' : 'N' }" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="9rem">
+                            <Text text="재질" maxLines="1"/>
+                            <t:template>
+                                    <Text text="{vanningModel>texture}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="9rem">
+                            <Text text="가로" maxLines="1"/>
+                            <t:template>
+                                    <Text text="{vanningModel>width}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="9rem">
+                            <Text text="세로" maxLines="1"/>
+                            <t:template>
+                                <Text text="{vanningModel>length}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="9rem">
+                            <Text text="높이" maxLines="1"/>
+                            <t:template>
+                                <Text text="{vanningModel>height}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="9rem">
+                            <Text text="두께" maxLines="1"/>
+                            <t:template>
+                                <Text text="{vanningModel>thickness}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="9rem">
+                            <Text text="부품중량" maxLines="1"/>
+                            <t:template>
+                                <Text text="{vanningModel>weight}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="9rem">
+                            <Text text="자재크기" maxLines="1"/>
+                            <t:template>
+                                <Text text="{vanningModel>size}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="9rem">
+                            <Text text="담당자" maxLines="1"/>
+                            <t:template>
+                                <Text text="{vanningModel>ZNPERNR}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="10rem">
+                            <Text text="전화번호" maxLines="1"/>
+                            <t:template>
+                                <Text text="{vanningModel>phone}" maxLines="1"/>
+                            </t:template>
+                        </t:Column>
+                    </t:columns>
+                </t:Table>
+            </layout:Grid>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
