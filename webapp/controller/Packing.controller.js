@@ -81,7 +81,8 @@ sap.ui.define([
 			modules.fieldCheck(oEvent.getSource());
 
 		},
-		onTest: function(oEvent) {
+		// 소숫점x
+		onTest: function(number) {
 			// 숫자를 문자열로 변환
 			let numberStr = number.toString();
 			// 숫자의 길이를 구함
@@ -99,6 +100,40 @@ sap.ui.define([
 			}
 			
 			return result;
+		},
+		// 소숫점o
+		addCommas: function(number) {
+			// 숫자를 문자열로 변환
+			let numberStr = number.toString();
+			// 소수점 위치 찾기
+			let decimalIndex = numberStr.indexOf('.');
+			
+			// 정수부에 쉼표 추가
+			let integerPart = decimalIndex !== -1 ? numberStr.substring(0, decimalIndex) : numberStr;
+			let integerResult = addCommasInteger(integerPart);
+			
+			// 소수부 유무 확인 후 처리
+			let decimalResult = decimalIndex !== -1 ? "." + numberStr.substring(decimalIndex + 1) : "";
+			
+			return integerResult + decimalResult;
+		},
+		
+		// 정수부에 쉼표 추가하는 함수
+		addComasInteger: function(integerPart) {
+			let length = integerPart.length;
+			let commaPositions = length % 3 !== 0 ? length % 3 : 3;
+			let result = integerPart.substring(0, commaPositions);
+			
+			for (let i = commaPositions; i < length; i += 3) {
+				result += ',' + integerPart.substring(i, i + 3);
+			}
+			
+			return result;
 		}
+		
+		// 테스트
+		let number = 123456789.12;
+		console.log(addCommas(number)); // 출력: "123,456,789.12"
+		
 	})
 })
