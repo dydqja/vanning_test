@@ -19,6 +19,7 @@
                     </Text>
                 </f:heading>									
                 <f:actions>
+                    <Button text="TEST" press="onTest"/>
                     <Button	text="조회" type="Emphasized" press="onSearch"/>
                     <Button text="입력" type="Transparent"/>
                     <Button	text="수정"	type="Transparent"/>

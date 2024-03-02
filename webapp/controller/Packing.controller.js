@@ -81,5 +81,24 @@ sap.ui.define([
 			modules.fieldCheck(oEvent.getSource());
 
 		},
+		onTest: function(oEvent) {
+			// 숫자를 문자열로 변환
+			let numberStr = number.toString();
+			// 숫자의 길이를 구함
+			let length = numberStr.length;
+			
+			// 쉼표를 추가할 위치 계산
+			let commaPositions = length % 3 !== 0 ? length % 3 : 3;
+			
+			// 쉼표를 추가한 문자열을 담을 변수
+			let result = numberStr.substring(0, commaPositions);
+			
+			// 나머지 숫자에 쉼표 추가
+			for (let i = commaPositions; i < length; i += 3) {
+				result += ',' + numberStr.substring(i, i + 3);
+			}
+			
+			return result;
+		}
 	})
 })
