@@ -224,6 +224,15 @@
                         </t:Column>
                     </t:columns>
                 </t:Table>
+                <!-- Date Formmat example -->
+                <Input 
+                    value="{
+                        path: 'ModelName>/Property',
+                        type: 'sap.ui.model.type.Date',
+                        formatOptions: {
+                            pattern: 'dd/MM/yyyy'
+                        }
+                    }" />
             </layout:Grid>
         </f:content>
     </f:DynamicPage>
