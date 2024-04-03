@@ -233,6 +233,16 @@
                             pattern: 'dd/MM/yyyy'
                         }
                     }" />
+                <!-- Edm.Time Format example -->
+                <Input 
+                    value="{
+                        path: 'ModelName>/Property',
+                        type: 'sap.ui.model.odata.type.Time',
+                        formatOptions: {
+                            format: 'HHmmss'
+                        }
+                    }"
+                />
             </layout:Grid>
         </f:content>
     </f:DynamicPage>
