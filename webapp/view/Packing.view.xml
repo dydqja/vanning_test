@@ -243,6 +243,21 @@
                         }
                     }"
                 />
+                <!-- Float Format example -->
+                <Input 
+                  value="{
+						path: 'ModelName>/Property',
+						type: 'sap.ui.model.type.Float',
+						formatOptions: {							
+							groupingEnabled: true, //자리수 그룹핑 할껀지
+							groupingSeparator: ',', //그룹 사이에 넣을 문자
+							groupingSize: 3, //몇자리수씩 그룹핑 할껀지
+							decimals: 2, //소숫점 몇자리까지 표시할껀지
+							preserveDecimals: false //소숫점 고정할껀지
+						}
+					}"
+                /> 
+            
             </layout:Grid>
         </f:content>
     </f:DynamicPage>
